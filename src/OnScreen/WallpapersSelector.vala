@@ -24,7 +24,7 @@ namespace Komorebi.OnScreen {
 
 	public class WallpapersSelector : ScrolledWindow {
 
-		public string path = "/System/Resources/Komorebi/";
+		public string path = "./";
 
 		Gtk.Grid grid = new Grid();
 

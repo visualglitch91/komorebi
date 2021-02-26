@@ -1,9 +1,9 @@
 [Info]
 WallpaperType=web_page
-WebPageUrl=https://source.unsplash.com/random/{{screen_width}}x{{screen_height}}
+WebPageUrl=http://localhost:4123?desktop=true
 
 [DateTime]
-Visible=true
+Visible=false
 Parallax=false
 MarginTop=0
 MarginRight=0

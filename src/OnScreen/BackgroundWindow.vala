@@ -68,22 +68,22 @@ namespace Komorebi.OnScreen {
 		Clutter.Image wallpaperImage = new Clutter.Image();
 
 		// Date and time box itself
-		DateTimeBox dateTimeBox;
+		//  DateTimeBox dateTimeBox;
 
 		// Asset Actor
-		AssetActor assetActor;
+		//  AssetActor assetActor;
 
 		// Bubble menu
 		public BubbleMenu bubbleMenu { get; private set; }
 
 		// Desktop icons
-		public DesktopIcons desktopIcons { get; private set; }
+		//  public DesktopIcons desktopIcons { get; private set; }
 
 		// Current animation mode
-		bool dateTimeBoxParallax = false;
+		//  bool dateTimeBoxParallax = false;
 
 		// Gradient bg animation (if available)
-		string gradientBackground = "";
+		//  string gradientBackground = "";
 
 		const TargetEntry[] targets = {
 			{ "text/uri-list", 0, 0}
@@ -100,28 +100,28 @@ namespace Komorebi.OnScreen {
 			embed = new GtkClutter.Embed() {width_request = screenWidth, height_request = screenHeight};
 			mainActor = embed.get_stage();
 			desktopPath = Environment.get_user_special_dir(UserDirectory.DESKTOP);
-			desktopIcons = monitorIndex == 0 ? new DesktopIcons(this) : null;
+			//  desktopIcons = monitorIndex == 0 ? new DesktopIcons(this) : null;
 			bubbleMenu = new BubbleMenu(this);
-			assetActor = new AssetActor(this);
-			dateTimeBox = new DateTimeBox(this);
+			//  assetActor = new AssetActor(this);
+			//  dateTimeBox = new DateTimeBox(this);
 			webViewActor = new GtkClutter.Actor.with_contents(webView);
 
-			if(enableVideoWallpapers) {
-				videoPlayback = new ClutterGst.Playback ();
-				videoContent = new ClutterGst.Content();
-				videoPlayback.set_seek_flags (ClutterGst.SeekFlags.ACCURATE);
+			//  if(enableVideoWallpapers) {
+			//  	videoPlayback = new ClutterGst.Playback ();
+			//  	videoContent = new ClutterGst.Content();
+			//  	videoPlayback.set_seek_flags (ClutterGst.SeekFlags.ACCURATE);
 
-				videoContent.player = videoPlayback;
+			//  	videoContent.player = videoPlayback;
 
-				videoPlayback.notify["progress"].connect(() => {
+			//  	videoPlayback.notify["progress"].connect(() => {
 
-					if(videoPlayback.progress >= 1.0 && wallpaperType == "video") {
-						videoPlayback.progress = 0.0;
-						videoPlayback.playing = true;
-					}
+			//  		if(videoPlayback.progress >= 1.0 && wallpaperType == "video") {
+			//  			videoPlayback.progress = 0.0;
+			//  			videoPlayback.playing = true;
+			//  		}
 
-				});
-			}
+			//  	});
+			//  }
 
 
 			// Setup widgets
@@ -136,22 +136,22 @@ namespace Komorebi.OnScreen {
 			stick ();
 			decorated = false;
 			add_events (EventMask.ENTER_NOTIFY_MASK | EventMask.POINTER_MOTION_MASK | EventMask.SMOOTH_SCROLL_MASK);
-			Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION | Gtk.DestDefaults.DROP, targets, Gdk.DragAction.MOVE);
+			//  Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION | Gtk.DestDefaults.DROP, targets, Gdk.DragAction.MOVE);
 
 			mainActor.background_color = Clutter.Color.from_string("black");
 
 			webViewActor.set_size(screenWidth, screenHeight);
 			wallpaperActor.set_size(screenWidth, screenHeight);
-			assetActor.set_size(screenWidth, screenHeight);
+			//  assetActor.set_size(screenWidth, screenHeight);
 			wallpaperActor.set_pivot_point (0.5f, 0.5f);
 
 			// Add widgets
 			mainActor.add_child(wallpaperActor);
-			mainActor.add_child(dateTimeBox);
-			mainActor.add_child(assetActor);
+			//  mainActor.add_child(dateTimeBox);
+			//  mainActor.add_child(assetActor);
 
-			if(desktopIcons != null)
-				mainActor.add_child(desktopIcons);
+			//  if(desktopIcons != null)
+			//  	mainActor.add_child(desktopIcons);
 
 			mainActor.add_child(bubbleMenu);
 
@@ -194,10 +194,10 @@ namespace Komorebi.OnScreen {
 					if(bubbleMenu.opacity > 0)
 						return false;
 
-					if(desktopIcons != null)
-						if(e.x >= desktopIcons.x && e.x <= (desktopIcons.x + desktopIcons.width) && 
-							e.y >= desktopIcons.y && e.y <= (desktopIcons.y + desktopIcons.height))
-							return false;
+					//  if(desktopIcons != null)
+					//  	if(e.x >= desktopIcons.x && e.x <= (desktopIcons.x + desktopIcons.width) && 
+					//  		e.y >= desktopIcons.y && e.y <= (desktopIcons.y + desktopIcons.height))
+					//  		return false;
 
 					bubbleMenu.fadeIn(e.x, e.y, MenuType.DESKTOP);
 					dimWallpaper();
@@ -206,103 +206,103 @@ namespace Komorebi.OnScreen {
 				return false;
 			});
 
-			motion_notify_event.connect((event) => {
+			//  motion_notify_event.connect((event) => {
 
-				// No parallax when menu is open
-				if(bubbleMenu.opacity > 0) {
-					return true;
-				}
+			//  	// No parallax when menu is open
+			//  	if(bubbleMenu.opacity > 0) {
+			//  		return true;
+			//  	}
 
-				var layer_coeff = 70;
+			//  	var layer_coeff = 70;
 
-				if(dateTimeParallax) {
-					if(dateTimePosition == "center") {
-						dateTimeBox.x = (float)((mainActor.width - dateTimeBox.width) / 2 - (event.x - (mainActor.width / 2)) / layer_coeff);
-						dateTimeBox.y = (float)((mainActor.height - dateTimeBox.height) / 2 - (event.y - (mainActor.height / 2)) / layer_coeff);
-					}
-				}
+			//  	if(dateTimeParallax) {
+			//  		if(dateTimePosition == "center") {
+			//  			dateTimeBox.x = (float)((mainActor.width - dateTimeBox.width) / 2 - (event.x - (mainActor.width / 2)) / layer_coeff);
+			//  			dateTimeBox.y = (float)((mainActor.height - dateTimeBox.height) / 2 - (event.y - (mainActor.height / 2)) / layer_coeff);
+			//  		}
+			//  	}
 
-				if(wallpaperParallax) {
-					wallpaperActor.x = (float)((mainActor.width - wallpaperActor.width) / 2 - (event.x - (mainActor.width / 2)) / layer_coeff);
-					wallpaperActor.y = (float)((mainActor.height - wallpaperActor.height) / 2 - (event.y - (mainActor.height / 2)) / layer_coeff);
-				}
+			//  	if(wallpaperParallax) {
+			//  		wallpaperActor.x = (float)((mainActor.width - wallpaperActor.width) / 2 - (event.x - (mainActor.width / 2)) / layer_coeff);
+			//  		wallpaperActor.y = (float)((mainActor.height - wallpaperActor.height) / 2 - (event.y - (mainActor.height / 2)) / layer_coeff);
+			//  	}
 
-				return true;
-			});
+			//  	return true;
+			//  });
 
-			focus_out_event.connect(() => {
+			//  focus_out_event.connect(() => {
 
-				// Hide the bubble menu
-				if(bubbleMenu.opacity > 0) {
-					bubbleMenu.fadeOut();
-					unDimWallpaper();
-					return true;
-				}
+			//  	// Hide the bubble menu
+			//  	if(bubbleMenu.opacity > 0) {
+			//  		bubbleMenu.fadeOut();
+			//  		unDimWallpaper();
+			//  		return true;
+			//  	}
 
-				return true;
-			});
+			//  	return true;
+			//  });
 
-			drag_motion.connect(dimWallpaper);
+			//  drag_motion.connect(dimWallpaper);
 
-			drag_leave.connect(() => unDimWallpaper());
+			//  drag_leave.connect(() => unDimWallpaper());
 
-			drag_data_received.connect((widget, context, x, y, selectionData, info, time) => {
+			//  drag_data_received.connect((widget, context, x, y, selectionData, info, time) => {
 
-				foreach(var uri in selectionData.get_uris()) {
+			//  	foreach(var uri in selectionData.get_uris()) {
 
-					// Path of the file
-					string filePath = uri.replace("file://","").replace("file:/","");
-					filePath = GLib.Uri.unescape_string (filePath);
+			//  		// Path of the file
+			//  		string filePath = uri.replace("file://","").replace("file:/","");
+			//  		filePath = GLib.Uri.unescape_string (filePath);
 
-					// Get the actual GLib file
-					var file = File.new_for_path(filePath);
-					var desktopFile = File.new_for_path(desktopPath + "/" + file.get_basename());
-					file.copy(desktopFile, FileCopyFlags.NONE, null);
-				}
+			//  		// Get the actual GLib file
+			//  		var file = File.new_for_path(filePath);
+			//  		var desktopFile = File.new_for_path(desktopPath + "/" + file.get_basename());
+			//  		file.copy(desktopFile, FileCopyFlags.NONE, null);
+			//  	}
 
-				Gtk.drag_finish (context, true, false, time);
-			});
+			//  	Gtk.drag_finish (context, true, false, time);
+			//  });
 
 			// disable interactions with webView
-			webView.button_press_event.connect(() => {
-				return true;
-			});
+			//  webView.button_press_event.connect(() => {
+			//  	return true;
+			//  });
 
-			webView.button_release_event.connect((e) => {
+			//  webView.button_release_event.connect((e) => {
 
-				button_release_event(e);
-				return true;
-			});
+			//  	button_release_event(e);
+			//  	return true;
+			//  });
 		}
 
 		public void initializeConfigFile () {
 
 			setWallpaper();
 
-			if(desktopIcons != null) {
+			//  if(desktopIcons != null) {
 			
-				if(!showDesktopIcons)
-					desktopIcons.fadeOut();
-				else
-					desktopIcons.fadeIn();
-			}
+			//  	if(!showDesktopIcons)
+			//  		desktopIcons.fadeOut();
+			//  	else
+			//  		desktopIcons.fadeIn();
+			//  }
 
-			if(dateTimeVisible) {
+			//  if(dateTimeVisible) {
 			
-				if(dateTimeAlwaysOnTop)
-					mainActor.set_child_above_sibling(dateTimeBox, assetActor);
-				else
-					mainActor.set_child_below_sibling(dateTimeBox, assetActor);
+			//  	if(dateTimeAlwaysOnTop)
+			//  		mainActor.set_child_above_sibling(dateTimeBox, assetActor);
+			//  	else
+			//  		mainActor.set_child_below_sibling(dateTimeBox, assetActor);
 				
-				dateTimeBox.setDateTime();
+			//  	dateTimeBox.setDateTime();
 
-			} else
-				dateTimeBox.fadeOut();
+			//  } else
+			//  	dateTimeBox.fadeOut();
 
-			if((wallpaperType != "video" && wallpaperType != "web_page") && assetVisible)
-				assetActor.setAsset();
-			else
-				assetActor.shouldAnimate();
+			//  if((wallpaperType != "video" && wallpaperType != "web_page") && assetVisible)
+			//  	assetActor.setAsset();
+			//  else
+			//  	assetActor.shouldAnimate();
 		}
 
 		void setWallpaper() {
@@ -321,24 +321,24 @@ namespace Komorebi.OnScreen {
 				wallpaperActor.scale_x = 1.00f;   
 			}
 
-			if(enableVideoWallpapers) {
+			//  if(enableVideoWallpapers) {
 				
-				if(wallpaperType == "video") {
+			//  	if(wallpaperType == "video") {
 
-					var videoPath = @"file:///System/Resources/Komorebi/$wallpaperName/$videoFileName";
-					videoPlayback.uri = videoPath;
-					videoPlayback.playing = true;
+			//  		var videoPath = @"file:///System/Resources/Komorebi/$wallpaperName/$videoFileName";
+			//  		videoPlayback.uri = videoPath;
+			//  		videoPlayback.playing = true;
 
-					wallpaperActor.set_content(videoContent);
+			//  		wallpaperActor.set_content(videoContent);
 
-					return;
+			//  		return;
 				
-				} else {
+			//  	} else {
 				
-					videoPlayback.playing = false;
-					videoPlayback.uri = "";
-				}
-			}
+			//  		videoPlayback.playing = false;
+			//  		videoPlayback.uri = "";
+			//  	}
+			//  }
 
 			if (wallpaperType == "web_page") {
 
@@ -355,8 +355,8 @@ namespace Komorebi.OnScreen {
 			} else {
 
 				// remove webViewActor
-				if(webViewActor.get_parent() == wallpaperActor)
-					wallpaperActor.remove_child(webViewActor);
+				//  if(webViewActor.get_parent() == wallpaperActor)
+				//  	wallpaperActor.remove_child(webViewActor);
 			}
 
 			wallpaperActor.set_content(wallpaperImage);
@@ -377,8 +377,8 @@ namespace Komorebi.OnScreen {
 			wallpaperActor.set_easing_mode (Clutter.AnimationMode.EASE_IN_SINE);
 			wallpaperActor.restore_easing_state ();
 
-			assetActor.opacity = 0;
-			dateTimeBox.opacity = 0;
+			//  assetActor.opacity = 0;
+			//  dateTimeBox.opacity = 0;
 
 			return true;
 		}
@@ -391,16 +391,16 @@ namespace Komorebi.OnScreen {
 			wallpaperActor.set_easing_mode (Clutter.AnimationMode.EASE_IN_SINE);
 			wallpaperActor.restore_easing_state ();
 
-			if(assetVisible)
-				assetActor.opacity = 255;
-			dateTimeBox.fadeIn(200);
+			//  if(assetVisible)
+			//  	assetActor.opacity = 255;
+			//  dateTimeBox.fadeIn(200);
 			
-			if(desktopIcons != null) {
-				if(!showDesktopIcons)
-					desktopIcons.fadeOut();
-				else
-					desktopIcons.fadeIn();
-			}
+			//  if(desktopIcons != null) {
+			//  	if(!showDesktopIcons)
+			//  		desktopIcons.fadeOut();
+			//  	else
+			//  		desktopIcons.fadeIn();
+			//  }
 
 			return true;
 		}
@@ -417,10 +417,10 @@ namespace Komorebi.OnScreen {
 		public void fadeIn() {
 
 			show_all();
-			dateTimeBox.setPosition();
+			//  dateTimeBox.setPosition();
 
-			if(desktopIcons != null)
-				desktopIcons.addIconsFromQueue();
+			//  if(desktopIcons != null)
+			//  	desktopIcons.addIconsFromQueue();
 
 		}
 

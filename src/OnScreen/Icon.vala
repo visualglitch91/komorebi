@@ -182,7 +182,7 @@ namespace Komorebi.OnScreen {
                             backgroundWindow.dimWallpaper();
 
                             bubbleMenu.fadeIn(e.x, e.y, MenuType.ICON);
-                            bubbleMenu.setIcon(this);
+                            //  bubbleMenu.setIcon(this);
 
                             // Dim our text
                             titleText.opacity = 50;

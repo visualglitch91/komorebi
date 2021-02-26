@@ -33,21 +33,21 @@ namespace Komorebi.OnScreen {
 		BoxLayout horizontalBoxLayout = new BoxLayout() {orientation = Orientation.VERTICAL, spacing = 5};
 
 		// Bubble items (Desktop)
-		BubbleMenuItem newFolderMenuItem;
+		//  BubbleMenuItem newFolderMenuItem;
 		BubbleMenuItem refreshMenuItem;
-		BubbleMenuItem pasteMenuItem;
+		//  BubbleMenuItem pasteMenuItem;
 		/*BubbleMenuItem hideAllWindowsMenuItem*/
 		BubbleMenuItem changeWallpaperMenuItem;
 		BubbleMenuItem preferencesMenuItem;
 
 		// Menu Items (Icon)
-		BubbleMenuItem moveToTrashMenuItem;
-		BubbleMenuItem copyMenuItem;
-		BubbleMenuItem makeAliasMenuItem;
-		BubbleMenuItem getInfoMenuItem;
+		//  BubbleMenuItem moveToTrashMenuItem;
+		//  BubbleMenuItem copyMenuItem;
+		//  BubbleMenuItem makeAliasMenuItem;
+		//  BubbleMenuItem getInfoMenuItem;
 
 		// Current icon (when right clicked)
-		OnScreen.Icon icon;
+		//  OnScreen.Icon icon;
 
 		// Type of this menu
 		MenuType menuType;
@@ -70,17 +70,17 @@ namespace Komorebi.OnScreen {
 			this.parent = parent;
 
 			// Desktop items
-			newFolderMenuItem = new BubbleMenuItem("New Folder");
+			//  newFolderMenuItem = new BubbleMenuItem("New Folder");
 			refreshMenuItem = new BubbleMenuItem("Refresh Wallpaper");
-			pasteMenuItem = new BubbleMenuItem("Paste");
+			//  pasteMenuItem = new BubbleMenuItem("Paste");
 			changeWallpaperMenuItem = new BubbleMenuItem("Change Wallpaper");
 			preferencesMenuItem = new BubbleMenuItem("Desktop Preferences");
 
 			// icon items
-			moveToTrashMenuItem = new BubbleMenuItem("Move to Trash");
-			copyMenuItem = new BubbleMenuItem("Copy Path");
-			makeAliasMenuItem = new BubbleMenuItem("Make Alias");
-			getInfoMenuItem = new BubbleMenuItem("Get Info");
+			//  moveToTrashMenuItem = new BubbleMenuItem("Move to Trash");
+			//  copyMenuItem = new BubbleMenuItem("Copy Path");
+			//  makeAliasMenuItem = new BubbleMenuItem("Make Alias");
+			//  getInfoMenuItem = new BubbleMenuItem("Get Info");
 
 			// Signals
 			signalsSetup();
@@ -88,15 +88,15 @@ namespace Komorebi.OnScreen {
 
 		void signalsSetup () {
 
-			newFolderMenuItem.button_press_event.connect(() => {
-				parent.desktopIcons.createNewFolder();
-				return true;
-			});
+			//  newFolderMenuItem.button_press_event.connect(() => {
+			//  	parent.desktopIcons.createNewFolder();
+			//  	return true;
+			//  });
 
-			pasteMenuItem.button_press_event.connect(() => {
-				parent.desktopIcons.copyToDesktop(clipboard.wait_for_text());
-				return true;
-			});
+			//  pasteMenuItem.button_press_event.connect(() => {
+			//  	parent.desktopIcons.copyToDesktop(clipboard.wait_for_text());
+			//  	return true;
+			//  });
 
 
 			refreshMenuItem.button_press_event.connect(() => {
@@ -108,8 +108,8 @@ namespace Komorebi.OnScreen {
 
 			changeWallpaperMenuItem.button_press_event.connect(() => {
 
-				if(showDesktopIcons)
-					parent.desktopIcons.fadeOut();
+				//  if(showDesktopIcons)
+				//  	parent.desktopIcons.fadeOut();
 
 				fadeOut();
 
@@ -138,48 +138,48 @@ namespace Komorebi.OnScreen {
 
 
 			// Icon items
-			copyMenuItem.button_press_event.connect(() => {
+			//  copyMenuItem.button_press_event.connect(() => {
 
-				// Copy file/folder
-				clipboard.set_text(icon.filePath, icon.filePath.length);
-				clipboard.store();
+			//  	// Copy file/folder
+			//  	clipboard.set_text(icon.filePath, icon.filePath.length);
+			//  	clipboard.store();
 
-				return true;
-			});
+			//  	return true;
+			//  });
 
-			moveToTrashMenuItem.button_press_event.connect(() => {
+			//  moveToTrashMenuItem.button_press_event.connect(() => {
 
-				icon.trash();
+			//  	icon.trash();
 
-				// Move file/folder to trash
-				var sourceFile = File.new_for_path(icon.filePath);
+			//  	// Move file/folder to trash
+			//  	var sourceFile = File.new_for_path(icon.filePath);
 
-				try {
-					sourceFile.trash();
-				} catch (Error e) {
+			//  	try {
+			//  		sourceFile.trash();
+			//  	} catch (Error e) {
 
-					print ("Error deleting %s: %s\n", icon.titleName, e.message);
-				}
+			//  		print ("Error deleting %s: %s\n", icon.titleName, e.message);
+			//  	}
 
-				return true;
-			});
+			//  	return true;
+			//  });
 
-			getInfoMenuItem.button_press_event.connect(() => {
+			//  getInfoMenuItem.button_press_event.connect(() => {
 
-				// Display a window with file/directory info
-				infoWindow.setInfoFromPath(icon.filePath);
-				infoWindow.show_all();
+			//  	// Display a window with file/directory info
+			//  	infoWindow.setInfoFromPath(icon.filePath);
+			//  	infoWindow.show_all();
 
-				return true;
-			});
-
-		}
-
-		public void setIcon (OnScreen.Icon icon) {
-
-			this.icon = icon;
+			//  	return true;
+			//  });
 
 		}
+
+		//  public void setIcon (OnScreen.Icon icon) {
+
+		//  	this.icon = icon;
+
+		//  }
 
 		public void fadeIn (double x, double y, MenuType menuType) {
 
@@ -187,34 +187,34 @@ namespace Komorebi.OnScreen {
 
 			if(menuType == MenuType.ICON) {
 
-				add_child(moveToTrashMenuItem);
-				add_child(copyMenuItem);
+				//  add_child(moveToTrashMenuItem);
+				//  add_child(copyMenuItem);
 				// add_child(makeAliasMenuItem);
-				add_child(getInfoMenuItem);
+				//  add_child(getInfoMenuItem);
 
 			} else {
 
 				// Dim all icons
-				foreach (var icon in parent.desktopIcons.iconsList)
-					icon.dimIcon();
+				//  foreach (var icon in parent.desktopIcons.iconsList)
+				//  	icon.dimIcon();
 
 				// Check if we have anything in the clipboard,
 				// if not, disable the 'Paste' menu item
-				var clipboardText = clipboard.wait_for_text ();
+				//  var clipboardText = clipboard.wait_for_text ();
 
-				if(clipboardText == "" || clipboardText == null) {
-					pasteMenuItem.opacity = 10;
-					pasteMenuItem.set_reactive(false);
-				} else {
-					pasteMenuItem.opacity = 255;
-					pasteMenuItem.set_reactive(true);
-				}
+				//  if(clipboardText == "" || clipboardText == null) {
+				//  	pasteMenuItem.opacity = 10;
+				//  	pasteMenuItem.set_reactive(false);
+				//  } else {
+				//  	pasteMenuItem.opacity = 255;
+				//  	pasteMenuItem.set_reactive(true);
+				//  }
 
 				// Hide 'New Folder' and 'Paste' item if we're not showing icons
-				if(showDesktopIcons) {
-					add_child(newFolderMenuItem);
-					add_child(pasteMenuItem);
-				}
+				//  if(showDesktopIcons) {
+				//  	add_child(newFolderMenuItem);
+				//  	add_child(pasteMenuItem);
+				//  }
 
 				// If we have a web page wallpaper, show the 'refresh wallpaper' menu item
 				if(wallpaperType == "web_page")
@@ -261,10 +261,10 @@ namespace Komorebi.OnScreen {
 			remove_all_children();
 
 			// Undim all icon
-			foreach (var icon in parent.desktopIcons.iconsList)
-				icon.unDimIcon();
+			//  foreach (var icon in parent.desktopIcons.iconsList)
+			//  	icon.unDimIcon();
 
-			icon = null;
+			//  icon = null;
 		}
 	}
 }

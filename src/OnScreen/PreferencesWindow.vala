@@ -43,9 +43,9 @@ namespace Komorebi.OnScreen {
 		Label titleLabel = new Label("");
 		Label aboutLabel = new Label("");
 
-		Gtk.CheckButton twentyFourHoursButton = new Gtk.CheckButton.with_label ("Use 24-hour time");
-		Gtk.CheckButton showDesktopIconsButton = new Gtk.CheckButton.with_label ("Show desktop icons");
-		Gtk.CheckButton enableVideoWallpapersButton = new Gtk.CheckButton.with_label ("Enable Video Wallpapers (Restarting Komorebi is required)");
+		//  Gtk.CheckButton twentyFourHoursButton = new Gtk.CheckButton.with_label ("Use 24-hour time");
+		//  Gtk.CheckButton showDesktopIconsButton = new Gtk.CheckButton.with_label ("Show desktop icons");
+		//  Gtk.CheckButton enableVideoWallpapersButton = new Gtk.CheckButton.with_label ("Enable Video Wallpapers (Restarting Komorebi is required)");
 
 		Gtk.Box bottomPreferencesBox = new Box(Orientation.HORIZONTAL, 10);
 
@@ -132,9 +132,9 @@ namespace Komorebi.OnScreen {
 			aboutLabel.set_markup("<span font='Lato Light 15px' color='white'>by Abraham Masri @cheesecakeufo</span>");
 
 			// showSystemStatsButton.active = showInfoBox;
-			twentyFourHoursButton.active = timeTwentyFour;
-			showDesktopIconsButton.active = showDesktopIcons;
-			enableVideoWallpapersButton.active = enableVideoWallpapers;
+			//  twentyFourHoursButton.active = timeTwentyFour;
+			//  showDesktopIconsButton.active = showDesktopIcons;
+			//  enableVideoWallpapersButton.active = enableVideoWallpapers;
 
 			setWallpaperNameLabel();
 
@@ -200,32 +200,32 @@ namespace Komorebi.OnScreen {
 			});
 
 
-			twentyFourHoursButton.toggled.connect (() => {
+			//  twentyFourHoursButton.toggled.connect (() => {
 
-				timeTwentyFour = twentyFourHoursButton.active;
-				updateConfigurationFile();
+			//  	timeTwentyFour = twentyFourHoursButton.active;
+			//  	updateConfigurationFile();
 
-			});
+			//  });
 
-			showDesktopIconsButton.toggled.connect (() => { 
-				showDesktopIcons = showDesktopIconsButton.active;
-				updateConfigurationFile();
+			//  showDesktopIconsButton.toggled.connect (() => { 
+			//  	showDesktopIcons = showDesktopIconsButton.active;
+			//  	updateConfigurationFile();
 
-				if (showDesktopIcons) {
-					foreach (BackgroundWindow backgroundWindow in backgroundWindows)
-						backgroundWindow.desktopIcons.fadeIn();
-				} else {
-					foreach (BackgroundWindow backgroundWindow in backgroundWindows)
-						backgroundWindow.desktopIcons.fadeOut();
-				}
-			});
+			//  	if (showDesktopIcons) {
+			//  		//  foreach (BackgroundWindow backgroundWindow in backgroundWindows)
+			//  		//  	backgroundWindow.desktopIcons.fadeIn();
+			//  	} else {
+			//  		foreach (BackgroundWindow backgroundWindow in backgroundWindows)
+			//  			backgroundWindow.desktopIcons.fadeOut();
+			//  	}
+			//  });
 
-			enableVideoWallpapersButton.toggled.connect (() => {
+			//  enableVideoWallpapersButton.toggled.connect (() => {
 
-				enableVideoWallpapers = enableVideoWallpapersButton.active;
-				updateConfigurationFile();
+			//  	enableVideoWallpapers = enableVideoWallpapersButton.active;
+			//  	updateConfigurationFile();
 
-			});
+			//  });
 
 			wallpapersSelector.wallpaperChanged.connect(() => {
 				setWallpaperNameLabel();
@@ -245,9 +245,9 @@ namespace Komorebi.OnScreen {
 			bottomPreferencesBox.pack_end(reportButton);
 
 			preferencesPage.add(aboutGrid);
-			preferencesPage.add(twentyFourHoursButton);
-			preferencesPage.add(showDesktopIconsButton);
-			preferencesPage.add(enableVideoWallpapersButton);
+			//  preferencesPage.add(twentyFourHoursButton);
+			//  preferencesPage.add(showDesktopIconsButton);
+			//  preferencesPage.add(enableVideoWallpapersButton);
 			preferencesPage.pack_end(bottomPreferencesBox);
 
 			bottomWallpapersBox.add(new Image.from_file("/System/Resources/Komorebi/info.svg"));
